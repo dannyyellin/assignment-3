@@ -16,7 +16,7 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        tags: meals-svc:dmy
+        tags: meals-svc:danny_yellin
         outputs: type=docker,dest=/tmp/image.tar
     - name: see if image.tar is in /tmp
       run: ls /tmp
