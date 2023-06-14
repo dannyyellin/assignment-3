@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: create log file
-      run: echo $(date -Iminutes) >> log.txt
+      run: echo $(date -Iminutes) > log
     - name: Checkout
       uses: actions/checkout@v3
     - name: Set up Docker Buildx
@@ -17,15 +17,15 @@ jobs:
         context: .
         file: ./Dockerfile
         tags: meals-svc:dmy
-        outputs: type=docker,dest= /tmp/image.tar
+        outputs: type=docker,dest=/tmp/image.tar
     - name: see if image is in /tmp
       run: ls /tmp
     - name: update log file on success
       if: success()
-      run: echo image successfully built > log.txt
+      run: echo image successfully built >> log
     - name: update log file on failure
       if: failure()
-      run: echo image not built  > log.txt
+      run: echo image not built  >> log
     - name: Upload meal-svc image
       uses: actions/upload-artifact@v3
       with:
@@ -35,8 +35,8 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: log.txt
-        path: log.txt
+        name: log
+        path: log
   test:
     needs: build
     runs-on: ubuntu-latest
