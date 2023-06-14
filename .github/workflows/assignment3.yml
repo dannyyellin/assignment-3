@@ -29,7 +29,7 @@ jobs:
     - name: Upload meal-svc image
       uses: actions/upload-artifact@v3
       with:
-        name: images
+        name: image
         path: /tmp/image.tar
     - name: Upload log file (always, even on build failure)
       if: always()
@@ -43,39 +43,48 @@ jobs:
     steps:
 #    # 1. download image and run it in a container
     - name: Download artifact
-      uses: actions/download-artifact@v3  # downloads all artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: image
+        path: /images/image.tar
     - name: Load Docker images from previous workflows
-      run: docker load --input images/image.tar
+      run: docker load --input /images/image.tar
+#      run: docker load --input images/image.tar
     - name: check meal-svc:danny_yellin image is loaded
       run: docker image ls
     - name: run image in container
       run: docker run -d -p8000:8000 meal-svc:danny_yellin
+    - name: print to log if container was successfully started
+      if: success()
+      run: echo Container up and running > log.txt
+    - name: print to log if container failed to launch
+      run: echo Container failed to run > log.txt
     - name: Check container is running
       run: docker ps
 #    # 2. set up python and pytest environment
-#    - name: Checkout
-#      uses: actions/checkout@v3
-#    - name: Set up Python
-#      uses: actions/setup-python@v4
-#    - name: Install dependencies
-#      run: |
-#        python -m pip install --upgrade pip
-#        pip install pytest # not using yet lint checker like ruff
-#        pip install requests
-#        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-##      # 3. run pytest tests and upload the results
-#    - name: Test with pytest  # additionally use ruff or other lint checkers
-#      run: |
-#        cd pytest-code
-#        pytest -v test_word.py > test_results.txt
-#    - name: upload test results
-#      if: always()  # always perform this step even if tests fail, to see results
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: GH_test_results
-#        path: pytest-code/test_results.txt
-##      The following steps will only execute if tests succeeded
-##      # 4. Push images to DockerHub
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest # not using yet lint checker like ruff
+        pip install requests
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+#      # 3. run pytest tests and upload the results
+    - name: Test with pytest  # additionally use ruff or other lint checkers
+      run: |
+        cd pytest-code
+        pytest -v test_word.py > test_results.txt
+    - name: upload test results
+      if: always()  # always perform this step even if tests fail, to see results
+      uses: actions/upload-artifact@v3
+      with:
+        name: GH_test_results
+        path: pytest-code/test_results.txt
+#      The following steps will only execute if tests succeeded
+#      # 4. Push images to DockerHub
 #  deploy:
 #    - needs: test
 #    - name: Set DATE
