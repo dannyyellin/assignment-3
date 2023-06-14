@@ -53,7 +53,7 @@ jobs:
         name: log
         path: /tmp  # this is directory to put artifact (log)
     - name: list /tmp directory
-      run ls /tmp
+      run: ls /tmp
     - name: Load Docker images from previous workflows
       run: docker load --input /tmp/image.tar
 #      run: docker load --input images/image.tar
