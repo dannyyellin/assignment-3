@@ -83,6 +83,12 @@ jobs:
       run: |
         cd pytest-code
         pytest -v test_word.py > test_results.txt
+    - name:
+      if: success()
+      run: echo tests succeeded > /tmp/log
+    - name:
+      if: failure()
+      run: echo tests failed > /tmp/log
 #    - name: upload test results
 #      if: always()  # always perform this step even if tests fail, to see results
 #      uses: actions/upload-artifact@v3
@@ -91,6 +97,12 @@ jobs:
 #        path: pytest-code/test_results.txt
 #      The following steps will only execute if tests succeeded
 #      # 4. Push images to DockerHub
+    - name: Upload log file (always, even on build failure)
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: log
+        path: /tmp/log
 #  deploy:
 #    - needs: test
 #    - name: Set DATE
