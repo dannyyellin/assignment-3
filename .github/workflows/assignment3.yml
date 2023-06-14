@@ -65,10 +65,10 @@ jobs:
       run: docker run -d -p5000:5000 meal-svc:danny_yellin
     - name: print to log if container was successfully started
       if: success()
-      run: echo Container up and running > /tmp/log
+      run: echo Container up and running >> /tmp/log
     - name: print to log if container failed to launch
       if: failure()
-      run: echo Container failed to run > /tmp/log
+      run: echo Container failed to run >> /tmp/log
     - name: Check container is running
       run: docker ps
 #    # 2. set up python and pytest environment
@@ -89,10 +89,10 @@ jobs:
         pytest -v assn3_tests.py > test_results.txt
     - name:
       if: success()
-      run: echo tests succeeded > /tmp/log
+      run: echo tests succeeded >> /tmp/log
     - name:
       if: failure()
-      run: echo tests failed > /tmp/log
+      run: echo tests failed >> /tmp/log
     - name: upload test results
       if: always()  # always perform this step even if tests fail, to see results
       uses: actions/upload-artifact@v3
