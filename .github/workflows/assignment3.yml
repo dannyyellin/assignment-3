@@ -52,13 +52,15 @@ jobs:
       with:
         name: log
         path: /tmp  # this is directory to put artifact (log)
+    - name: list /tmp directory
+      run ls /tmp
     - name: Load Docker images from previous workflows
       run: docker load --input /tmp/image.tar
 #      run: docker load --input images/image.tar
     - name: check meal-svc:danny_yellin image is loaded
       run: docker image ls
     - name: run image in container
-      run: docker run -d -p8000:8000 meal-svc:danny_yellin
+      run: docker run -d -p5000:5000 meal-svc:danny_yellin
     - name: print to log if container was successfully started
       if: success()
       run: echo Container up and running > /tmp/log
