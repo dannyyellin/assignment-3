@@ -23,7 +23,7 @@ jobs:
       run: echo image successfully built >> log.txt
     - name: update log file on failure
       if: failure()
-      run: echo image successfully built >> log.txt
+      run: echo image not built  >> log.txt
     - name: Upload meal-svc image
       uses: actions/upload-artifact@v3
       with:

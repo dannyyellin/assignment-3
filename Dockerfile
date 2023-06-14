@@ -9,8 +9,7 @@ ENV FLASK_RUN_PORT=5000
 ENV FLASK_DEBUG: "true"
 ADD meals.py .
 ADD meal_exceptions.py .
-ADD My_Ninja_key.py .
-Add Ninja_key.py .
+Add Ninja_key__.py .
 EXPOSE 5000
 
 CMD ["flask", "run", "--host=0.0.0.0"]
