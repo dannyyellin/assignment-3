@@ -17,7 +17,9 @@ jobs:
         context: .
         file: ./Dockerfile
         tags: meals-svc:danny-yellin
-        outputs: type=docker,dest= /tmp/image.tar
+        outputs: type=docker,dest= /tmp
+    - name: see if image is in /tmp
+      run: ls /tmp
     - name: update log file on success
       if: success()
       run: echo image successfully built >> log.txt
@@ -28,7 +30,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: images
-        path: /tmp/image.tar
+        path: /tmp
     - name: Upload log file (always, even on build failure)
       if: always()
       uses: actions/upload-artifact@v3
