@@ -8,7 +8,7 @@ jobs:
     - name: create log file
       run: | 
         echo $(date -Iminutes) > /tmp/log
-        echo Danny Yellin > /tmp/log
+        echo Danny Yellin >> /tmp/log
     - name: Checkout
       uses: actions/checkout@v3
     - name: Set up Docker Buildx
