@@ -43,7 +43,10 @@ def test2():
 def test3():
     response = connectionController.http_get("dishes")
     # get number of objects returned
+    json_obj = response.json()
+    length = json_obj.len()
     assert response.status_code == 200
+    assert length == 3
 
 
 # test 4:  Execute a POST /dishes request supplying the dish name “blah”. The test is successful if (i) the return
