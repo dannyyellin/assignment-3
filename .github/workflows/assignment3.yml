@@ -6,7 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: create log file
-      run: echo $(date -Iminutes) > /tmp/log
+      run: | 
+        echo $(date -Iminutes) > /tmp/log
+        echo Danny Yellin > /tmp/log
     - name: Checkout
       uses: actions/checkout@v3
     - name: Set up Docker Buildx
@@ -62,7 +64,7 @@ jobs:
     - name: check meal-svc:danny_yellin image is loaded
       run: docker image ls
     - name: run image in container
-      run: docker run -d -p5000:5000 meal-svc:danny_yellin
+      run: docker run -d -p8000:8000 meal-svc:danny_yellin
     - name: print to log if container was successfully started
       if: success()
       run: echo Container up and running >> /tmp/log
@@ -105,7 +107,7 @@ jobs:
       with:
         name: log
         path: /tmp/log
-#  deploy:
+  query:
 #    - needs: test
 #    - name: Set DATE
 #      run: echo "DATE=$(date -I)" >> $GITHUB_ENV

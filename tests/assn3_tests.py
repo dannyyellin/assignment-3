@@ -2,7 +2,11 @@ import sys
 
 import connectionController
 # from assertions import *
+global orange_ID, spaghetti_ID, apple_pie_ID
 
+# test 1:  Execute three POST /dishes requests using the dishes, “orange”, “spaghetti”, and “apple pie”.   The test is
+# successful if (i) all 3 requests return unique IDs (none of the IDs are the same), and (ii) the return status code
+# from each POST request is 201.
 def test1():
     orange =  {"name": "orange"}
     orange_response = connectionController.http_post("dishes",orange)
@@ -23,20 +27,33 @@ def test1():
     assert orange_ID != apple_pie_ID
     assert spaghetti_ID != apple_pie_ID
 
+# test 2: Execute a GET dishes/<orange-ID> request, using the ID of the orange dish.  The test is successful if (i) the
+# sodium field of the return JSON object is between 1 and 5 and (ii) the return status code from the request is 200.
+def test2():
+    response = connectionController.http_get(f"dishes/{orange_ID}")
+    sodium = response.json()["sodium"]
+    assert response.status_code == 200
+    assert sodium >= 1 and sodium <=5
+    print("sodium of orange = ", sodium)
+    sys.stdout.flush()
 
-# def test_insert_word1():
-#     word = "house"
-#     response = connectionController.http_post_qs("words",word)
-#     print("response.text =")
-#     print(response.text)
-#     print("response.json() =")
-#     print(response.json())
-#     print("response.status_code =")
-#     print(str(response.status_code))
-#     sys.stdout.flush()
-#     assert_valid_added_resource(response)
-#     word_collection[response.json()] = "house"
-#
+# test 3: Execute a GET /dishes request.  The test is successful if (i) the returned JSON object has 3 embedded JSON objects (
+# dishes), and (ii) the return status code from the GET request is 200.
+def test3():
+    response = connectionController.http_get("dishes")
+    # get number of objects returned
+    assert response.status_code == 200
+
+
+# test 4:  Execute a POST /dishes request supplying the dish name “blah”. The test is successful if (i) the return
+# value is -3, and (ii) the return code is 404 or 400.
+def test4():
+    blah = {"name": "blah"}
+    blah_response = connectionController.http_post("dishes", blah)
+    assert blah_response.status_code == 400
+
+
+
 # def test_get_word_by_id():
 #     word = "book"
 #     response = connectionController.http_post_qs("words",word)
