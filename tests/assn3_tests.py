@@ -44,7 +44,9 @@ def test3():
     response = connectionController.http_get("dishes")
     # get number of objects returned
     json_obj = response.json()
-    length = json_obj.len()
+    print(json_obj)
+    sys.stdout.flush()
+    length = len(json_obj)
     assert response.status_code == 200
     assert length == 3
 
