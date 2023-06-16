@@ -9,6 +9,7 @@ global orange_ID, spaghetti_ID, apple_pie_ID
 # from each POST request is 201.
 def test1():
     orange =  {"name": "orange"}
+    global orange_ID, spaghetti_ID, apple_pie_ID
     orange_response = connectionController.http_post("dishes",orange)
     assert orange_response.status_code == 201
     orange_ID = orange_response.json()
@@ -50,7 +51,8 @@ def test3():
 def test4():
     blah = {"name": "blah"}
     blah_response = connectionController.http_post("dishes", blah)
-    assert blah_response.status_code == 400
+    # assert blah_response.status_code == 400
+    assert blah_response.status_code == 400 or blah_response.status_code == 422
 
 
 

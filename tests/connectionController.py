@@ -8,7 +8,6 @@ def http_get(resource: str):
     response = requests.get(url=f"{URL}/{resource}", headers={"Content-Type": "application/json"})
     return response
 
-
 def http_delete(resource: str):
     response = requests.delete(url=f"{URL}/{resource}", headers={"Content-Type": "application/json"})
     return response

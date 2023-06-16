@@ -260,7 +260,7 @@ class Dish(Resource):
     # courses is an instance of the Courses class, initialized by the main program on startup
     global courses
 
-    # GET takes either a dish ID or a dish ndocker ame and returns the JSON object containing for that dish with resp code 200.
+    # GET takes either a dish ID or a dish name and returns the JSON object containing for that dish with resp code 200.
     # (1) If neither the dish ID nor a dish name is specified, it returns -1 with error code 400 (Bad request).
     # (2) if dish name or dish ID does not exist, it returns -5 with error code 404 (Not Found).
     def get(self, ID=None, name=None):
