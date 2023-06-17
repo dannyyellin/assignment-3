@@ -57,7 +57,8 @@ if __name__ == '__main__':
     for line in lines:
         food = line.strip()
         cal, sod, sug = get_food_info(food)
-        fh_resp.write(food, " contains ", cal," calories, ", sod, " mgs of sodium, and ", sug, " grams of sugar\n")
+        str = food + " contains " +  cal +" calories, " + sod + " mgs of sodium, and " + sug + " grams of sugar\n"
+        fh_resp.write(str)
     fh_resp.close()
 
 
