@@ -44,6 +44,7 @@ def test3():
     response = connectionController.http_get("dishes")
     # get number of objects returned
     json_obj = response.json()
+    print("test3: json_obj = ")
     print(json_obj)
     sys.stdout.flush()
     length = len(json_obj)
@@ -56,7 +57,7 @@ def test3():
 def test4():
     blah = {"name": "blah"}
     blah_response = connectionController.http_post("dishes", blah)
-    # assert blah_response.status_code == 400
+    assert blah_response.json() == -3
     assert blah_response.status_code == 400 or blah_response.status_code == 422
 
 
