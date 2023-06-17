@@ -57,8 +57,8 @@ if __name__ == '__main__':
     for line in lines:
         food = line.strip()
         cal, sod, sug = get_food_info(food)
-        s = food + "contains" + '{:3f}'.format(cal) + " calories, " + '{:3f}'.format(sod) + " mgs of sodium, and " + \
-            '{:3f}'.format(sug) + " grams of sugar\n"
+        s = food + " contains " + '{:1f}'.format(cal) + " calories, " + '{:1f}'.format(sod) + " mgs of sodium, and " + \
+            '{:1f}'.format(sug) + " grams of sugar\n"
         fh_resp.write(s)
     fh_resp.close()
 
