@@ -102,8 +102,8 @@ def test7():
     sys.stdout.flush()
 
     meal_obj = meals[str(meal_ID)]  # get meal with ID meal_ID
-    calories = meal_obj.get()["calories"]
-    assert calories > 300 and calories < 2000
+    calories = meal_obj["cal"]
+    assert calories > 300 and calories < 700
 
     assert response.status_code == 200
 
