@@ -92,12 +92,16 @@ def test6():
 # that meal is between X and Y, and (iii) the return status code from the GET request is 200.
 def test7():
     response = connectionController.http_get("meals")
-    meal_resp = response.json()
+    meals = response.json()
     # get number of objects returned
-    length = len(meal_resp)
+    length = len(meals)
     assert length == 1
 
-    meal_obj = meal_resp[meal_ID]  # get meal with ID meal_ID
+    print(meals)
+    print("meal_ID = ", str(meal_ID))
+    sys.stdout.flush()
+
+    meal_obj = meals[1]  # get meal with ID meal_ID
     calories = meal_obj.get()["calories"]
     assert calories > 300 and calories < 2000
 
