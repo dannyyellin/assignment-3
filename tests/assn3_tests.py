@@ -101,7 +101,7 @@ def test7():
     print("meal_ID = ", str(meal_ID))
     sys.stdout.flush()
 
-    meal_obj = meals[1]  # get meal with ID meal_ID
+    meal_obj = meals[str(meal_ID)]  # get meal with ID meal_ID
     calories = meal_obj.get()["calories"]
     assert calories > 300 and calories < 2000
 
