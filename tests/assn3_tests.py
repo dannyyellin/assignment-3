@@ -97,24 +97,25 @@ def test7():
     length = len(meal_resp)
     assert length == 1
 
-    meal_obj = meal_resp[0]
+    meal_obj = meal_resp[meal_ID]  # get meal with ID meal_ID
     calories = meal_obj.get()["calories"]
     assert calories > 300 and calories < 2000
 
     assert response.status_code == 200
 
 
-# Perform a POST /meals request as in test 6 but this time specify an ID for the appetizer to be 990099. The test is
-# successful if (i) the code is -5 and, and (ii) the return status code from the request is 400 or 422.
+# Perform a POST /meals request as in test 6 with the same meal name (and courses can be the same or different).
+# The test is successful if (i) the code is -2 (same meal name as existing meal) and, and
+# (ii) the return status code from the request is 400 or 422.
 def test8():
     global meal_ID
     meal = {
         "name": "delicious",
         "appetizer": orange_ID,
         "main": spaghetti_ID,
-        "dessert": 990099
+        "dessert": apple_pie_ID
     }
     response = connectionController.http_post("meals", meal)
     meal_ID = response.json()
-    assert meal_ID == -5
+    assert meal_ID == -2
     assert response.status_code == 400 or response.status_code == 422
