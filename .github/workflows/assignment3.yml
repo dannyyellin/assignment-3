@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 #    # 1. download image and run it in a container
-    - name: Download image artifact
+    - name: Download image artifact from build job
       uses: actions/download-artifact@v3
       with:
         name: tarball
@@ -58,7 +58,7 @@ jobs:
       run: |
         ls /tmp
         cat /tmp/log
-    - name: Load Docker images from previous workflows
+    - name: Load Docker images
       run: docker load --input /tmp/image.tar
 #      run: docker load --input images/image.tar
     - name: check meal-svc:danny_yellin image is loaded
@@ -118,6 +118,8 @@ jobs:
       with:
         name: tarball
         path: /tmp
+    - name: Load Docker image
+      run: docker load --input /tmp/image.tar
     - name: run image in container
       run: docker run -d -p8000:8000 meal-svc:danny_yellin
     - name: read query.txt file from current directory and produce response file in /tmp/response.txt
