@@ -89,7 +89,7 @@ def test6():
 
 
 # Perform a GET /meals request. The test is successful if (i) the returned JSON object has 1 meal, (ii) the calories of
-# that meal is between X and Y, and (iii) the return status code from the GET request is 200.
+# that meal is between 300 and 700, and (iii) the return status code from the GET request is 200.
 def test7():
     response = connectionController.http_get("meals")
     meals = response.json()
@@ -103,7 +103,7 @@ def test7():
 
     meal_obj = meals[str(meal_ID)]  # get meal with ID meal_ID
     calories = meal_obj["cal"]
-    assert calories > 300 and calories < 700
+    assert calories > 400 and calories < 500
 
     assert response.status_code == 200
 
@@ -123,3 +123,4 @@ def test8():
     meal_ID = response.json()
     assert meal_ID == -2
     assert response.status_code == 400 or response.status_code == 422
+
